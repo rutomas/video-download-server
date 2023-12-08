@@ -21,3 +21,11 @@ app.get("/download", (req, res) => {
     format: "mp4",
   }).pipe(res);
 });
+
+app.get("/info", (req, res) => {
+  const URL = req.query.URL;
+
+  ytdl.getBasicInfo(URL).then((info) => {
+    res.json(info);
+  });
+});
