@@ -15,7 +15,7 @@ app.listen(4000, () => {
 app.get("/download", (req, res) => {
   try {
     const URL = req.query.URL;
-    const name = req.query.name;
+    const name = req.query.name.replaceAll(" ", "_");
 
     res.header("Content-Disposition", `attachment; filename="${name}.mp4"`);
 
