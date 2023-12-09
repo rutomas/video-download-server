@@ -20,9 +20,7 @@ app.get("/download", (req, res) => {
     const name = req.query.name;
 
     res.writeHead(200, {
-      "Content-Disposition": contentDisposition(
-        `attachment; filename=${name}.mp4`
-      ),
+      "Content-Disposition": contentDisposition(`${name}.mp4`),
     });
 
     ytdl(URL, {
