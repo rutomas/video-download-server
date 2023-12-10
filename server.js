@@ -21,6 +21,8 @@ app.get("/download", (req, res) => {
 
     res.writeHead(200, {
       "Content-Disposition": contentDisposition(`${name}.mp4`),
+      "x-youtube-identity-token":
+        "QUFFLUhqblVveUdMNGhRVVByd2pabzg2T1FUeUM0Z2pmUXw=",
     });
 
     ytdl(URL, {
@@ -39,9 +41,16 @@ app.get("/info", (req, res) => {
   try {
     const URL = req.query.URL;
 
-    ytdl.getBasicInfo(URL).then((info) => {
-      res.json(info);
-    });
+    ytdl
+      .getBasicInfo(URL, {
+        requestOptions: {
+          "x-youtube-identity-token":
+            "QUFFLUhqblVveUdMNGhRVVByd2pabzg2T1FUeUM0Z2pmUXw=",
+        },
+      })
+      .then((info) => {
+        res.json(info);
+      });
   } catch (error) {
     console.error(error);
 
