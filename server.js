@@ -13,14 +13,14 @@ app.listen(1000, () => {
 
 app.get("/download", (req, res) => {
   try {
-    const URL = req.query.URL;
+    const id = req.query.id;
     const name = req.query.name;
 
     res.writeHead(200, {
       "Content-Disposition": contentDisposition(`${name}.mp4`),
     });
 
-    ytdl(URL, {
+    ytdl(id, {
       format: "mp4",
     }).pipe(res);
   } catch (error) {
@@ -34,9 +34,9 @@ app.get("/download", (req, res) => {
 
 app.get("/info", (req, res) => {
   try {
-    const URL = req.query.URL;
+    const id = req.query.id;
 
-    ytdl.getBasicInfo(URL).then((info) => {
+    ytdl.getBasicInfo(id).then((info) => {
       res.json(info);
     });
   } catch (error) {
