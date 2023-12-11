@@ -33,8 +33,6 @@ app.get("/download", ({ query: { id, name } }, res) => {
   } catch (error) {
     console.error(error);
 
-    res.json({
-      error,
-    });
+    res.json({ error });
   }
 });
