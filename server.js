@@ -42,6 +42,6 @@ app.get("/info", (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.json(error);
+    res.json({ error });
   }
 });
