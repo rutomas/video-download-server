@@ -11,37 +11,30 @@ app.listen(1000, () => {
   console.log("Server Works !!! At port 1000");
 });
 
-app.get("/download", (req, res) => {
+app.get("/info", async ({ query: { id } }, res) => {
   try {
-    const id = req.query.id;
-    const name = req.query.name;
+    const info = await ytdl.getBasicInfo(id);
 
+    res.json(info);
+  } catch (error) {
+    console.error(error);
+
+    res.json({ error });
+  }
+});
+
+app.get("/download", ({ query: { id, name } }, res) => {
+  try {
     res.writeHead(200, {
       "Content-Disposition": contentDisposition(`${name}.mp4`),
     });
 
-    ytdl(id, {
-      format: "mp4",
-    }).pipe(res);
+    ytdl(id, { format: "mp4" }).pipe(res);
   } catch (error) {
     console.error(error);
 
     res.json({
       error,
     });
-  }
-});
-
-app.get("/info", (req, res) => {
-  try {
-    const id = req.query.id;
-
-    ytdl.getBasicInfo(id).then((info) => {
-      res.json(info);
-    });
-  } catch (error) {
-    console.error(error);
-
-    res.json({ error });
   }
 });
