@@ -35,6 +35,12 @@ app.get("/download", (req, res) => {
   } catch (error) {
     console.error(error);
 
+    if (!error) {
+      res.json({ error: "!download" });
+
+      return;
+    }
+
     res.json({
       error,
     });
@@ -57,8 +63,12 @@ app.get("/info", (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.json({
-      error,
-    });
+    if (!error) {
+      res.json({ error: "!info" });
+
+      return;
+    }
+
+    res.json(error);
   }
 });
