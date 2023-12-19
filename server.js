@@ -13,7 +13,7 @@ app.listen(1000, () => {
 
 app.get("/info", async ({ query: { id } }, res) => {
   try {
-    const info = await ytdl.getBasicInfo(id);
+    const info = await ytdl.getInfo(id);
 
     res.json(info);
   } catch (error) {
