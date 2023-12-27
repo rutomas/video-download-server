@@ -83,7 +83,7 @@ app.get(
       });
 
       ytdl(id, {
-        filter: (format) => (format.itag = itag),
+        filter: (format) => format.itag == itag,
         requestOptions,
       }).pipe(res);
     } catch (error) {
